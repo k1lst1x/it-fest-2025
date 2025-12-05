@@ -414,7 +414,7 @@ async def handle_message(message: Message) -> None:
                 await message.answer(msgs[lang], reply_markup=help_keyboard)
                 return
 
-            await message.answer(f"🗣️ {transcript}", reply_markup=help_keyboard)
+            #await message.answer(f"🗣️ {transcript}", reply_markup=help_keyboard)
             user_query_text = transcript
 
         except subprocess.CalledProcessError:
