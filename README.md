@@ -35,7 +35,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 # установи зависимости (создай requirements.txt, например ниже)
-pip install aiogram openai python-dotenv
+pip install -r requirements.txt
 # убедись, что ffmpeg установлен:
 # Ubuntu / Debian:
 sudo apt update && sudo apt install -y ffmpeg
@@ -50,7 +50,7 @@ python bot.py
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-pip install aiogram openai python-dotenv
+pip install -r requirements.txt
 # установить ffmpeg (рекомендуется через choco или ручная установка)
 # если установлен Chocolatey:
 choco install ffmpeg -y
