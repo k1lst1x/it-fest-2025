@@ -1,0 +1,407 @@
+{% extends "front/base.html" %}
+{% load lang_tags %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.page-wrapper {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 16px 80px;
+    background: linear-gradient(180deg, rgba(0, 16, 159, 0.05) 0%, transparent 100%);
+}
+
+.center-box {
+    width: 100%;
+    max-width: 600px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #0067f5 0%, #0a80ed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid rgba(0, 103, 245, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 16, 159, 0.1);
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    border-color: rgba(0, 103, 245, 0.4);
+    box-shadow: 0 12px 48px rgba(0, 103, 245, 0.15);
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+}
+
+.form-label.required::after {
+    content: " *";
+    color: #ff6b6b;
+    font-weight: 700;
+}
+
+.input-field,
+.textarea-field {
+    width: 100%;
+    font-size: 15px;
+    border-radius: 12px;
+    border: 2px solid rgba(0, 103, 245, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-field {
+    height: 54px;
+    padding: 0 18px;
+}
+
+.textarea-field {
+    min-height: 140px;
+    padding: 16px 18px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.6;
+}
+
+.input-field::placeholder,
+.textarea-field::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.input-field:focus,
+.textarea-field:focus {
+    border-color: #0067f5;
+    background: rgba(0, 0, 0, 0.5);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 103, 245, 0.1), 0 0 20px rgba(0, 103, 245, 0.3);
+}
+
+.btn-submit {
+    width: 100%;
+    height: 54px;
+    margin-top: 32px;
+    background: linear-gradient(90deg, #0067f5 0%, #0a80ed 100%);
+    border: none;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 103, 245, 0.4);
+}
+
+.btn-submit:hover::before {
+    left: 100%;
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.form-hint {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 8px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.success-message {
+    margin-top: 32px;
+    padding: 32px;
+    border-radius: 16px;
+    background: rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    text-align: center;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4caf50;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.success-text {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+.ticket-id {
+    margin-top: 20px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(0, 103, 245, 0.2) 0%, rgba(10, 128, 237, 0.2) 100%);
+    border: 1px solid rgba(0, 103, 245, 0.4);
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0a80ed;
+    letter-spacing: 1px;
+}
+
+.solution-box {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(10, 128, 237, 0.1);
+    border: 1px solid rgba(10, 128, 237, 0.3);
+    text-align: left;
+}
+
+.solution-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0a80ed;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.solution-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+}
+
+.error-message {
+    margin-top: 24px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    color: #ff6b6b;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@media (max-width: 640px) {
+    .page-wrapper {
+        padding: 40px 12px 60px;
+    }
+    
+    .page-title {
+        font-size: 26px;
+        margin-bottom: 24px;
+    }
+    
+    .box {
+        padding: 24px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .success-message {
+        padding: 24px;
+    }
+    
+    .ticket-id {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+</style>
+
+<link rel="stylesheet" href="{% static 'css/ai-chat.css' %}">
+
+<div class="page-wrapper">
+<div class="center-box">
+
+    <div class="page-title">{% tr "Создание заявки" %}</div>
+
+    <div class="box">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="full_name" class="form-label required">{% tr "ФИО" %}</label>
+                <input id="full_name" name="full_name" class="input-field"
+                       placeholder="{% tr 'Иванов Иван Иванович' %}"
+                       value="{{ full_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="account_number" class="form-label required">{% tr "Лицевой счёт" %}</label>
+                <input id="account_number" name="account_number" class="input-field"
+                       placeholder="{% tr 'Например: 123456789' %}"
+                       value="{{ account_number }}" required>
+                <div class="form-hint">
+                    {% tr "Укажите номер вашего лицевого счёта из договора" %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="form-label required">
+                    {% tr "Описание проблемы" %}
+                </label>
+                <textarea id="description" name="description" class="textarea-field"
+                          placeholder="{% tr 'Опишите вашу проблему подробно...' %}" required>{{ description }}</textarea>
+                <div class="form-hint">
+                    {% tr "Чем подробнее вы опишете проблему, тем быстрее мы сможем помочь" %}
+                </div>
+            </div>
+
+            <button class="btn-submit">{% tr "Отправить заявку" %}</button>
+        </form>
+    </div>
+
+    {% if success %}
+    <div class="success-message">
+        <div class="success-title">{% tr "Заявка успешно создана!" %}</div>
+
+        <div class="success-text">
+            {% tr "Ваша заявка принята в обработку. Мы свяжемся с вами в ближайшее время." %}
+        </div>
+
+        {% if ticket.ticket_code %}
+        <div class="ticket-id">{% tr "Номер заявки " %} {{ ticket.ticket_code }}</div>
+        {% endif %}
+
+        {% if ticket.proposed_solution_client %}
+        <div class="solution-box">
+            <div class="solution-title">
+                {% tr "Также попробуйте это — возможно, вы сможете решить проблему самостоятельно:" %}
+            </div>
+
+            <div class="solution-text">
+                {{ ticket.proposed_solution_client }}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error-message">{% tr error %}</div>
+    {% endif %}
+
+</div>
+</div>
+
+<button id="aiChatToggle" class="ai-chat-toggle" aria-label="Открыть ИИ помощник">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="pulse-ring"></span>
+</button>
+
+<div id="aiChatPopup" class="ai-chat-popup">
+    <div class="ai-chat-container">
+        <div class="ai-chat-header">
+            <button id="aiChatClose" class="ai-close-btn" aria-label="Закрыть">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="ai-avatar-wrapper">
+                <img src="{% static 'images/ai-avatar.png' %}" alt="AI Avatar" class="ai-avatar-img ai-avatar-static">
+                <img src="{% static 'images/ai-avatar-animated.gif' %}" alt="AI Avatar Animated" class="ai-avatar-img ai-avatar-animated">
+            </div>
+            
+            <div class="ai-header-info">
+                <h3 class="ai-title">Uşqyr-AI Помощник</h3>
+                <p class="ai-subtitle">Готов помочь с вашим вопросом</p>
+            </div>
+        </div>
+        
+        <div class="ai-chat-messages" id="aiChatMessages">
+            <div class="ai-message ai-welcome">
+                <div class="ai-message-avatar">
+                    <img src="{% static 'images/ai-avatar.png' %}" alt="AI">
+                </div>
+                <div class="ai-message-content">
+                    Здравствуйте! Я ИИ помощник Uşqyr-AI. Задайте мне любой вопрос, и я постараюсь помочь вам.
+                </div>
+            </div>
+        </div>
+        
+        <div class="ai-chat-input-wrapper">
+            <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="Введите ваш вопрос..." autocomplete="off">
+            <button id="aiChatSend" class="ai-send-btn" aria-label="Отправить">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/ai-chat.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% load static %}
+{% load lang_tags %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% tr 'Ошибка 404 — Uşqyr-AI' %}</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+
+<div class="auth-wrapper">
+    <div class="error-card">
+        <div class="error-icon">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+        
+        <div class="error-content">
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">{% tr 'Страница не найдена' %}</h2>
+            <p class="error-description">
+                {% tr 'К сожалению, запрашиваемая вами страница не существует или была перемещена.' %}
+            </p>
+        </div>
+
+        <div class="error-actions">
+            <a href="/" class="error-btn primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>{% tr 'На главную' %}</span>
+            </a>
+            <a href="javascript:history.back()" class="error-btn secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>{% tr 'Назад' %}</span>
+            </a>
+        </div>
+
+        <div class="error-footer">
+            <div class="logo-container-small">
+                <img src="{% static 'images/logo.png' %}" alt="Uşqyr-AI Logo" class="brand-logo-small">
+            </div>
+            <p class="brand-slogan-small">{% tr 'когда эффективность - это не цель, а стандарт' %}</p>
+        </div>
+    </div>
+
+    <div class="background-effects">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+</div>
+
+</body>
+</html>

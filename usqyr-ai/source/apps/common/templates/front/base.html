@@ -1,0 +1,64 @@
+{% load static %}
+{% load lang_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% block title %}{% tr "Uşqyr-AI — когда эффективность - это не цель, а стандарт" %}{% endblock %}</title>
+
+    <meta name="openai-api-key" content="">
+
+    <meta name="description" content="{% tr 'Uşqyr-AI — платформа искусственного интеллекта. Когда эффективность - это не цель, а стандарт.' %}">
+    <meta name="keywords" content="{% tr 'Uşqyr-AI, искусственный интеллект, AI, машинное обучение, эффективность, автоматизация' %}">
+
+    <meta property="og:title" content="{% tr 'Uşqyr-AI — AI платформа нового поколения' %}">
+    <meta property="og:description" content="{% tr 'Когда эффективность - это не цель, а стандарт.' %}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{% static 'favicons/favicon-512x512.png' %}">
+    <meta property="og:locale" content="ru_RU">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicons/fav.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicons/fav.png' %}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{% static 'favicons/fav.png' %}">
+    <link rel="shortcut icon" href="{% static 'favicons/fav.png' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'dist/font-awesome_4_7/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout-front.css' %}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+
+    {% include "front/base/header.html" %}
+
+    <main class="page-content" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "front/base/footer.html" %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const burger = document.querySelector('.burger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (burger && mobileMenu) {
+                burger.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('open');
+                    burger.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

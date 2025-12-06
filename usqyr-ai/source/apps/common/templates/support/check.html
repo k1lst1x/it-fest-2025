@@ -1,0 +1,334 @@
+{% extends "front/base.html" %}
+{% load lang_tags %}
+
+{% block content %}
+
+<style>
+.page-wrapper {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 16px 80px;
+    background: linear-gradient(180deg, rgba(0, 16, 159, 0.05) 0%, transparent 100%);
+}
+
+.center-box {
+    width: 100%;
+    max-width: 600px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #0067f5 0%, #0a80ed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid rgba(0, 103, 245, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 16, 159, 0.1);
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    border-color: rgba(0, 103, 245, 0.4);
+    box-shadow: 0 12px 48px rgba(0, 103, 245, 0.15);
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+}
+
+.input-large {
+    width: 100%;
+    height: 54px;
+    padding: 0 18px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(0, 103, 245, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-large::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.input-large:focus {
+    border-color: #0067f5;
+    background: rgba(0, 0, 0, 0.5);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 103, 245, 0.1), 0 0 20px rgba(0, 103, 245, 0.3);
+}
+
+.btn-large {
+    width: 100%;
+    height: 54px;
+    margin-top: 24px;
+    background: linear-gradient(90deg, #0067f5 0%, #0a80ed 100%);
+    border: none;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.btn-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 103, 245, 0.4);
+}
+
+.btn-large:hover::before {
+    left: 100%;
+}
+
+.btn-large:active {
+    transform: translateY(0);
+}
+
+.ticket-card {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 103, 245, 0.3);
+    margin-top: 32px;
+    box-shadow: 0 8px 32px rgba(0, 16, 159, 0.2);
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 103, 245, 0.2);
+}
+
+.ticket-number {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+}
+
+.status-badge {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.st-new {
+    background: linear-gradient(135deg, rgba(0, 103, 245, 0.2) 0%, rgba(10, 128, 237, 0.2) 100%);
+    color: #0a80ed;
+    border: 1px solid rgba(10, 128, 237, 0.3);
+}
+
+.st-progress {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 152, 0, 0.2) 100%);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.st-done {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(56, 142, 60, 0.2) 100%);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ticket-table td {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0, 103, 245, 0.1);
+    font-size: 15px;
+}
+
+.ticket-table tr:last-child td {
+    border-bottom: none;
+}
+
+.ticket-label {
+    width: 140px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.ticket-value {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.not-found {
+    margin-top: 24px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    color: #ff6b6b;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@media (max-width: 640px) {
+    .page-wrapper {
+        padding: 40px 12px 60px;
+    }
+    
+    .page-title {
+        font-size: 26px;
+        margin-bottom: 24px;
+    }
+    
+    .box, .ticket-card {
+        padding: 24px;
+    }
+    
+    .ticket-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    
+    .ticket-label {
+        width: 120px;
+        font-size: 14px;
+    }
+    
+    .ticket-value {
+        font-size: 14px;
+    }
+}
+</style>
+
+<div class="page-wrapper">
+<div class="center-box">
+
+    <div class="page-title">{% tr "Проверка заявки" %}</div>
+
+    <div class="box">
+        <form method="post">
+            {% csrf_token %}
+            <label class="form-label">{% tr "Введите ID заявки" %}</label>
+
+            <input name="ticket_id" class="input-large"
+                   placeholder="{% tr 'Например: 000123' %}"
+                   value="{{ ticket_id }}" required>
+
+            <button class="btn-large">{% tr "Проверить" %}</button>
+        </form>
+    </div>
+
+    {% if ticket_id and found %}
+        {% if found %}
+        <div class="ticket-card">
+
+            <div class="ticket-header">
+                <span class="ticket-number">{% tr "Заявка №" %}{{ ticket_id }}</span>
+
+                <span class="status-badge
+                    {% if raw_status == 'new' %}st-new{% endif %}
+                    {% if raw_status == 'in_progress' %}st-progress{% endif %}
+                    {% if raw_status == 'done' %}st-done{% endif %}
+                ">
+                    {% tr status %}
+                </span>
+            </div>
+
+            <table class="ticket-table">
+                <tr>
+                    <td class="ticket-label">{% tr "Описание" %}:</td>
+                    <td class="ticket-value">{% tr description %}</td>
+                </tr>
+
+                <tr>
+                    <td class="ticket-label">{% tr "Создана" %}:</td>
+                    <td class="ticket-value">{{ created_at }}</td>
+                </tr>
+
+                {% if closed_at %}
+                <tr>
+                    <td class="ticket-label">{% tr "Закрыта" %}:</td>
+                    <td class="ticket-value">{{ closed_at }}</td>
+                </tr>
+                {% endif %}
+
+                {% if show_engineer and engineer %}
+                <tr>
+                    <td class="ticket-label">{% tr "Инженер" %}:</td>
+                    <td class="ticket-value">{{ engineer }}</td>
+                </tr>
+                {% endif %}
+            </table>
+
+        </div>
+        {% else %}
+        <div class="not-found">{% tr "Заявка не найдена" %}</div>
+        {% endif %}
+    {% endif %}
+
+</div>
+</div>
+
+{% endblock %}

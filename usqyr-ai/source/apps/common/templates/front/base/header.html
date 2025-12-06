@@ -1,0 +1,104 @@
+{% load static %}
+{% load lang_tags %}
+
+<header class="site-header">
+
+    <div class="prehead">
+        <div class="prehead-container">
+            <span class="prehead-text">
+                {% tr "когда эффективность — это не цель, а стандарт" %}
+            </span>
+
+            <div class="prehead-lang">
+                <a href="/kk{{ current_path_without_lang }}" class="lang-btn {% if current_lang_code == 'kk' %}active{% endif %}">KK</a>
+                <a href="/ru{{ current_path_without_lang }}" class="lang-btn {% if current_lang_code == 'ru' %}active{% endif %}">RU</a>
+                <a href="/en{{ current_path_without_lang }}" class="lang-btn {% if current_lang_code == 'en' %}active{% endif %}">EN</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+
+            <a href="/" class="navbar-brand">
+                <img src="{% static 'favicons/fav.png' %}" alt="Uşqyr-AI" class="brand-logo">
+                <span class="brand-name">Uşqyr-AI</span>
+            </a>
+
+            <div class="navbar-center">
+                <a href="/support/" class="nav-link">
+                    <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>{% tr "Обратиться в поддержку" %}</span>
+                </a>
+                <a href="/support/check/" class="nav-link">
+                    <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span>{% tr "Проверить статус" %}</span>
+                </a>
+            </div>
+
+            <a href="https://t.me/KazakhtelecomAIBot" target="_blank" rel="noopener noreferrer" class="nav-telegram">
+                <svg class="telegram-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18.717-1.135 5.048-1.604 6.698-.198.7-.59.933-.969.956-.824.076-1.448-.544-2.244-1.067-1.246-.818-1.95-1.326-3.158-2.124-1.396-.923-.491-1.43.305-2.26.208-.217 3.818-3.5 3.886-3.793.009-.037.016-.175-.065-.248-.081-.073-.2-.048-.287-.028-.123.028-2.08 1.321-5.872 3.88-.556.383-1.06.57-1.511.56-.498-.01-1.455-.281-2.168-.513-.874-.284-1.568-.434-1.508-.917.031-.252.383-.51.997-.773 3.907-1.7 6.514-2.82 7.817-3.362 3.719-1.547 4.49-1.816 4.992-1.824.111-.002.359.025.52.154.135.109.173.256.19.36.019.103.042.339.024.523z"/>
+                </svg>
+                <span class="telegram-text">Telegram</span>
+            </a>
+
+            <button class="burger" id="burgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="/support/" class="mobile-link">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                {% tr "Обратиться в поддержку" %}
+            </a>
+            <a href="/support/check/" class="mobile-link">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                {% tr "Проверить статус" %}
+            </a>
+            <a href="https://t.me/KazakhtelecomAIBot" target="_blank" rel="noopener noreferrer" class="mobile-link mobile-link-telegram">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18.717-1.135 5.048-1.604 6.698-.198.7-.59.933-.969.956-.824.076-1.448-.544-2.244-1.067-1.246-.818-1.95-1.326-3.158-2.124-1.396-.923-.491-1.43.305-2.26.208-.217 3.818-3.5 3.886-3.793.009-.037.016-.175-.065-.248-.081-.073-.2-.048-.287-.028-.123.028-2.08 1.321-5.872 3.88-.556.383-1.06.57-1.511.56-.498-.01-1.455-.281-2.168-.513-.874-.284-1.568-.434-1.508-.917.031-.252.383-.51.997-.773 3.907-1.7 6.514-2.82 7.817-3.362 3.719-1.547 4.49-1.816 4.992-1.824.111-.002.359.025.52.154.135.109.173.256.19.36.019.103.042.339.024.523z"/>
+                </svg>
+                {% tr "Telegram Бот" %}
+            </a>
+        </div>
+
+    </nav>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const burgerBtn = document.getElementById("burgerBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+        
+        burgerBtn.addEventListener("click", () => {
+            burgerBtn.classList.toggle("active");
+            mobileMenu.classList.toggle("open");
+            document.body.classList.toggle("menu-open");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!burgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                burgerBtn.classList.remove("active");
+                mobileMenu.classList.remove("open");
+                document.body.classList.remove("menu-open");
+            }
+        });
+    });
+    </script>
+
+</header>

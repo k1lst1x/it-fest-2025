@@ -1,0 +1,83 @@
+{% load static %}
+{% load lang_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>
+        {% block title %}
+            {% tr "Uşqyr-AI — Административная панель" %}
+        {% endblock %}
+    </title>
+
+    <meta name="description" content="{% tr 'Административная панель Uşqyr-AI. Управление системой поддержки клиентов.' %}">
+    <meta name="keywords" content="{% tr 'Uşqyr-AI, админ панель, администрирование, управление системой, поддержка клиентов' %}">
+
+    <meta property="og:title" content="{% tr 'Uşqyr-AI — Административная панель' %}">
+    <meta property="og:description" content="{% tr 'Закрытый административный интерфейс Uşqyr-AI для управления сервисом и данными.' %}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{% static 'favicons/fav.png' %}">
+    <meta property="og:locale" content="ru_RU">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicons/fav.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicons/fav.png' %}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{% static 'favicons/fav.png' %}">
+    <link rel="shortcut icon" href="{% static 'favicons/fav.png' %}">
+
+    <link rel="stylesheet" href="{% static 'dist/font-awesome_4_7/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout-admin.css' %}">
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    {% include 'cadmin/base/sidebar.html' %}
+
+    <div class="admin-main">
+
+        {% include 'cadmin/base/header.html' %}
+
+        <main class="admin-content">
+
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <div class="msg-banner {{ message.tags }}">
+                            <span>{% tr message %}</span>
+                            <button class="msg-close" onclick="this.parentElement.remove()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include 'cadmin/base/footer.html' %}
+    </div>
+</div>
+
+<div class="unsupported">
+    <div class="unsupported-content">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <p>{% tr "Интерфейс не поддерживает экран вашего размера." %}</p>
+    </div>
+</div>
+
+<script src="{% static 'js/timezone.js' %}"></script>
+
+</body>
+</html>

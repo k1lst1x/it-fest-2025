@@ -1,0 +1,235 @@
+{% extends "cadmin/base.html" %}
+{% load static %}
+{% load lang_tags %}
+
+{% block content %}
+
+<div class="dashboard-wrapper">
+
+    <div class="dashboard-header">
+        <div>
+            <h1 class="dashboard-title">{% tr "Дашборд" %}</h1>
+            <p class="dashboard-subtitle">{% tr "Центр управления системой поддержки" %}</p>
+        </div>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-icon" style="background: linear-gradient(135deg, #0067f5, #0a80ed);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">{{ clients|length }}</div>
+                <div class="kpi-label">{% tr "Клиенты" %}</div>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-icon" style="background: linear-gradient(135deg, #00109f, #0067f5);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">{{ services|length }}</div>
+                <div class="kpi-label">{% tr "Услуги" %}</div>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-icon" style="background: linear-gradient(135deg, #0a80ed, #0067f5);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">{{ engineers|length }}</div>
+                <div class="kpi-label">{% tr "Инженеры" %}</div>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-icon" style="background: linear-gradient(135deg, #00109f, #0a80ed);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">{{ tickets|length }}</div>
+                <div class="kpi-label">{% tr "Заявки" %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-header">
+                <h3 class="stat-title">{% tr "Инженеры и активные заявки" %}</h3>
+            </div>
+            <div class="stat-list">
+                {% for e in engineers %}
+                <div class="stat-item">
+                    <span class="stat-name">{{ e.full_name }}</span>
+                    <span class="stat-badge">{{ e.active_tickets_count }}</span>
+                </div>
+                {% empty %}
+                <div class="stat-empty">{% tr "Нет инженеров" %}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <h3 class="stat-title">{% tr "Самые популярные услуги" %}</h3>
+            </div>
+            <div class="stat-list">
+                {% for s in services|slice:":5" %}
+                <div class="stat-item">
+                    <span class="stat-name">{{ s.title }}</span>
+                    <span class="stat-price">{{ s.price }} ₸</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <h3 class="stat-title">{% tr "Клиенты и количество услуг" %}</h3>
+            </div>
+            <div class="stat-list">
+                {% for c in clients|slice:":5" %}
+                <div class="stat-item">
+                    <span class="stat-name">{{ c.full_name }}</span>
+                    <span class="stat-badge">{{ c.clientservice_set.count }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2 class="section-title">{% tr "Активные заявки" %}</h2>
+    </div>
+
+    <div class="tickets-grid">
+        {% for t in tickets %}
+            {% if t.status != "done" %}
+            <div class="ticket-card">
+                <div class="ticket-header">
+                    <div class="ticket-info">
+                        <h4 class="ticket-client">{{ t.client.full_name }}</h4>
+                        <span class="ticket-code">#{{ t.ticket_code }}</span>
+                    </div>
+                    <span class="ticket-status status-{{ t.status }}">
+                        {{ t.get_status_display }}
+                    </span>
+                </div>
+
+                <div class="ticket-description">
+                    <strong>{% tr "Описание" %}:</strong>
+                    <p>{{ t.description|truncatechars:180 }}</p>
+                </div>
+
+                <div class="ticket-metrics">
+                    <div class="metric-item">
+                        <span class="metric-label">{% tr "Приоритет" %}</span>
+                        <span class="metric-value">{{ t.priority_score }}/100</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">{% tr "Вероятность визита" %}</span>
+                        <span class="metric-value">{{ t.engineer_visit_probability }}%</span>
+                    </div>
+                </div>
+
+                {% if t.why_engineer_needed %}
+                <div class="ticket-detail">
+                    <strong>{% tr "Почему требуется инженер" %}:</strong>
+                    <p>{{ t.why_engineer_needed|truncatechars:200 }}</p>
+                </div>
+                {% endif %}
+
+                {% if t.proposed_solution_engineer %}
+                <div class="ticket-detail">
+                    <strong>{% tr "Техническая рекомендация" %}:</strong>
+                    <p>{{ t.proposed_solution_engineer|truncatechars:200 }}</p>
+                </div>
+                {% endif %}
+
+                {% if t.proposed_solution_client %}
+                <div class="ticket-detail">
+                    <strong>{% tr "Рекомендация клиенту" %}:</strong>
+                    <p>{{ t.proposed_solution_client|truncatechars:200 }}</p>
+                </div>
+                {% endif %}
+
+                <div class="ticket-footer">
+                    <div class="ticket-engineer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        {{ t.engineer.full_name|default:"—" }}
+                    </div>
+                    <div class="ticket-date">
+                        {{ t.created_at|date:"d.m.Y H:i" }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="section-header">
+        <h2 class="section-title">{% tr "Завершённые заявки" %}</h2>
+    </div>
+
+    <div class="tickets-grid">
+        {% for t in tickets %}
+            {% if t.status == "done" %}
+            <div class="ticket-card ticket-completed">
+                <div class="ticket-header">
+                    <div class="ticket-info">
+                        <h4 class="ticket-client">{{ t.client.full_name }}</h4>
+                        <span class="ticket-code">#{{ t.ticket_code }}</span>
+                    </div>
+                    <span class="ticket-status status-done">
+                        {% tr "Закрыта" %}
+                    </span>
+                </div>
+
+                <div class="ticket-description">
+                    <strong>{% tr "Описание" %}:</strong>
+                    <p>{{ t.description|truncatechars:200 }}</p>
+                </div>
+
+                {% if t.final_resolution %}
+                <div class="ticket-detail">
+                    <strong>{% tr "Финальное решение" %}:</strong>
+                    <p>{{ t.final_resolution|truncatechars:200 }}</p>
+                </div>
+                {% endif %}
+
+                <div class="ticket-footer">
+                    <div class="ticket-closed">
+                        {% tr "Закрыта" %}: {{ t.closed_at|date:"d.m.Y H:i" }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

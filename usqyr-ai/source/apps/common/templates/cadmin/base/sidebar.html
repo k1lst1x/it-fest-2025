@@ -1,0 +1,57 @@
+{% load static %}
+{% load lang_tags %}
+
+<aside class="admin-sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="{% static 'images/logo.png' %}" alt="Uşqyr-AI Logo">
+        </div>
+        <div class="sidebar-brand">
+            <span class="brand-name">Uşqyr-AI</span>
+            <span class="brand-subtitle">Admin</span>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <ul class="nav-list">
+            <li class="nav-item {% if slug_nav == 'dashboard' %}active{% endif %}">
+                <a href="/admin/dashboard/" class="nav-link" title="{% tr 'Панель управления' %}">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span class="nav-text">{% tr "Дашборд" %}</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/" class="nav-link" title="{% tr 'Вернуться на сайт' %}">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="nav-text">{% tr "На сайт" %}</span>
+                </a>
+            </li>
+
+            <li class="nav-item nav-logout">
+                <a href="/auth/logout/" class="nav-link" title="{% tr 'Выйти' %}">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span class="nav-text">{% tr "Выход" %}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="sidebar-slogan">
+            {% tr "когда эффективность - это не цель, а стандарт" %}
+        </div>
+    </div>
+</aside>

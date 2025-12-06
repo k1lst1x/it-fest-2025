@@ -1,0 +1,114 @@
+{% load static %}
+{% load lang_tags %}
+
+<footer class="footer">
+    <div class="footer-container">
+        
+        <div class="footer-top">
+            <div class="footer-brand-section">
+                <div class="footer-brand-header">
+                    <img src="{% static 'favicons/fav.png' %}" alt="Uşqyr-AI" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3 class="footer-brand-name">Uşqyr-AI</h3>
+                        <p class="footer-slogan">{% tr "когда эффективность — это не цель, а стандарт" %}</p>
+                    </div>
+                </div>
+                <p class="footer-description">
+                    {% tr "ИИ Help Desk сервис — система поддержки пользователей, которая использует искусственный интеллект для автоматизации и улучшения обслуживания." %}
+                </p>
+                <p class="footer-company">
+                    <strong>{% tr "АО «Казахтелеком»" %}</strong> — {% tr "крупнейшая телекоммуникационная компания Казахстана" %}
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-middle">
+            
+            <div class="footer-contact-card">
+                <div class="contact-header">
+                    <svg class="contact-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <div>
+                        <h4 class="contact-title">{% tr "Контакт-центр" %}</h4>
+                        <a href="tel:160" class="contact-phone">160</a>
+                    </div>
+                </div>
+                <p class="contact-purpose">{% tr "По вопросам консультации" %}</p>
+                <div class="contact-schedule">
+                    <div class="schedule-item">
+                        <span class="schedule-label">{% tr "Пн-Пт" %}</span>
+                        <span class="schedule-time">08:00 - 23:00</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-label">{% tr "Сб-Вс" %}</span>
+                        <span class="schedule-time">09:00 - 23:00</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-label">{% tr "Праздники" %}</span>
+                        <span class="schedule-time">09:00 - 23:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-links-grid">
+                <div class="footer-links-column">
+                    <h4 class="footer-column-title">{% tr "Поддержка" %}</h4>
+                    <a href="/support/" class="footer-link">
+                        <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        {% tr "Обратиться в поддержку" %}
+                    </a>
+                    <a href="/support/check/" class="footer-link">
+                        <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        {% tr "Проверить статус" %}
+                    </a>
+                    <a href="https://t.me/KazakhtelecomAIBot" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-telegram">
+                        <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18.717-1.135 5.048-1.604 6.698-.198.7-.59.933-.969.956-.824.076-1.448-.544-2.244-1.067-1.246-.818-1.95-1.326-3.158-2.124-1.396-.923-.491-1.43.305-2.26.208-.217 3.818-3.5 3.886-3.793.009-.037.016-.175-.065-.248-.081-.073-.2-.048-.287-.028-.123.028-2.08 1.321-5.872 3.88-.556.383-1.06.57-1.511.56-.498-.01-1.455-.281-2.168-.513-.874-.284-1.568-.434-1.508-.917.031-.252.383-.51.997-.773 3.907-1.7 6.514-2.82 7.817-3.362 3.719-1.547 4.49-1.816 4.992-1.824.111-.002.359.025.52.154.135.109.173.256.19.36.019.103.042.339.024.523z"/>
+                        </svg>
+                        {% tr "Telegram Бот" %}
+                    </a>
+                </div>
+
+                <div class="footer-links-column">
+                    <h4 class="footer-column-title">{% tr "Система" %}</h4>
+                    <a href="/admin/" class="footer-link">
+                        <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="9" y1="3" x2="9" y2="21"></line>
+                        </svg>
+                        {% tr "Админ-панель" %}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                © 2025 Uşqyr-AI — {% tr "ИИ Help Desk сервис от АО «Казахтелеком»" %}
+            </p>
+            <div class="footer-badges">
+                <span class="footer-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    AI-Powered
+                </span>
+                <span class="footer-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    24/7 Support
+                </span>
+            </div>
+        </div>
+
+    </div>
+</footer>
